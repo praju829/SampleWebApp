@@ -33,7 +33,12 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'prajktamhapsekar829'
     cliProjectName: 'SampleWebApp'
-    cliSources: '.' 
+    cliSources: '.'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.java.binaries=.
 
 - task: SonarCloudAnalyze@1 
 - task: SonarCloudPublish@1
