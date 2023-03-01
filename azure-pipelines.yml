@@ -30,7 +30,7 @@ steps:
     serviceConnectionEndpoint: 'snyk'
     testType: 'app'
     monitorWhen: 'always'
-    failOnIssues: false 
+    failOnIssues: false
 
 - task: SonarCloudPrepare@1
   inputs:
