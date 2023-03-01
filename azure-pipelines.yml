@@ -14,7 +14,7 @@ steps:
   inputs:
     buildFile: 'build.xml'
     options: 
-    targets: 'complile'
+    targets: 'compile'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
