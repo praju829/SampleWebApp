@@ -25,7 +25,6 @@ steps:
     scanPath: '.'
     format: 'HTML' 
 
--
 - task: SnykSecurityScan@1
   inputs:
     serviceConnectionEndpoint: 'snyk'
