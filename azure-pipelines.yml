@@ -29,7 +29,6 @@ steps:
   inputs:
     serviceConnectionEndpoint: 'snyk'
     testType: 'app'
-    targetFile: '.'
     monitorWhen: 'always'
     failOnIssues: false
 
