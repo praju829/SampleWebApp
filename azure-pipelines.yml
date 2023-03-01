@@ -17,4 +17,49 @@ steps:
     targets: 'compile'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
+    javaHomeOption: 'JDKVersion' 
+
+- task: dependency-check-build-task@6
+  inputs:
+    projectName: 'SampleWebApp'
+    scanPath: '.'
+    format: 'HTML' 
+
+- task: SnykSecurityScan@1
+  inputs:
+    serviceConnectionEndpoint: 'snyk'
+    testType: 'app'
+    monitorWhen: 'always'
+    failOnIssues: true 
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'prajktamhapsekar829'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'prajktamhapsekar829'
+    cliProjectName: 'SampleWebApp'
+    cliSources: '.' 
+
+- task: SonarCloudAnalyze@1 
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300' 
+
+- task: Ant@1
+  inputs:
+    buildFile: 'build.xml'
+    options: 
+    targets: 'war'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion' 
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'tomcat-devsecops-connection'
+    sourceFolder: '/home/vsts/work/1/s/target'
+    contents: '**/*.war'
+    targetFolder: '/var/lib/tomcat9/webapps'
+    readyTimeout: '20000'
