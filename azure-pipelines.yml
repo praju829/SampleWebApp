@@ -9,69 +9,12 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: Maven@4
+steps: 
+- task: Ant@1
   inputs:
-    mavenPomFile: 'build.xml'
-    goals: 'compile'
+    buildFile: 'build.xml'
+    options: 
+    targets: 'complile'
     publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-
-- task: dependency-check-build-task@6
-  inputs:
-    projectName: 'SampleWebApp'
-    scanPath: '.'
-    format: 'HTML'
-
-- task: SnykSecurityScan@1
-  inputs:
-    serviceConnectionEndpoint: 'snyk'
-    testType: 'app'
-    monitorWhen: 'always'
-    failOnIssues: false 
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'sonarcloud'
-    organization: 'prajktamhapsekar829'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'prajktamhapsekar829'
-    cliProjectName: 'SampleWebApp'
-    cliSources: '.'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.java.binaries=.
-      sonar.analysis.failOnQualityGate=false
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
-
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'build.xml'
-    goals: 'clean install'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false 
-
-- task: CopyFilesOverSSH@0
-  inputs:
-    sshEndpoint: 'tomcat-devsecops-connection'
-    sourceFolder: '/home/vsts/work/1/s/target'
-    contents: '**/*.jar'
-    targetFolder: '/var/lib/tomcat9/webapps'
-    readyTimeout: '20000'
-
