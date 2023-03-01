@@ -25,10 +25,12 @@ steps:
     scanPath: '.'
     format: 'HTML' 
 
+-
 - task: SnykSecurityScan@1
   inputs:
     serviceConnectionEndpoint: 'snyk'
     testType: 'app'
+    targetFile: '.'
     monitorWhen: 'always'
     failOnIssues: false
 
