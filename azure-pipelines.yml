@@ -19,14 +19,6 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion' 
 
-- task: SnykSecurityScan@1
-  inputs:
-    serviceConnectionEndpoint: 'snyk'
-    testType: 'app'
-    targetFile: '**/*.war'
-    monitorWhen: 'always'
-    failOnIssues: false
-
 - task: dependency-check-build-task@6
   inputs:
     projectName: 'SampleWebApp'
