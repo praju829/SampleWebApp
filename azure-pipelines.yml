@@ -14,7 +14,7 @@ steps:
   inputs:
     buildFile: 'build.xml'
     options: 
-    targets: 'compile'
+    targets: 'clean package'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion' 
@@ -23,6 +23,7 @@ steps:
   inputs:
     serviceConnectionEndpoint: 'snyk'
     testType: 'app'
+    targetFile: '**/*.war'
     monitorWhen: 'always'
     failOnIssues: false
 
