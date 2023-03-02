@@ -17,7 +17,15 @@ steps:
     targets: 'compile'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    javaHomeOption: 'JDKVersion' 
+    javaHomeOption: 'JDKVersion'  
+
+- task: SnykSecurityScan@1
+  inputs:
+    serviceConnectionEndpoint: 'snyk'
+    testType: 'app'
+    targetFile: '/home/vsts/work/1/s/build.xml'
+    monitorWhen: 'always'
+    failOnIssues: false
 
 - task: dependency-check-build-task@6
   inputs:
