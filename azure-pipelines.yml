@@ -6,7 +6,8 @@
 trigger:
 - master
 
-pool: my-pool
+pool: my-pool 
+agent: demo
 
 steps: 
 - task: Ant@1
