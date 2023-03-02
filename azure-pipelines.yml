@@ -60,4 +60,11 @@ steps:
     sourceFolder: '/home/vsts/work/1/s/dest'
     contents: '**/*.war'
     targetFolder: '/var/lib/tomcat9/webapps'
-    readyTimeout: '20000'
+    readyTimeout: '20000' 
+
+- task: owaspzap@1
+  inputs:
+    scantype: 'targetedScan'
+    url: 'http://3.109.32.149:8080/SampleWebApp'
+    provideCustomContext: true
+    contextPath: '/SampleWebApp'
