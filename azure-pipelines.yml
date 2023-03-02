@@ -6,7 +6,8 @@
 trigger:
 - master
 
-pool: my-pool 
+pool:
+  vmImage: ubuntu-latest
 
 steps: 
 - task: Ant@1
@@ -23,13 +24,6 @@ steps:
     projectName: 'SampleWebApp'
     scanPath: '.'
     format: 'HTML' 
-- task: SnykSecurityScan@1
-  inputs:
-    serviceConnectionEndpoint: 'snyk'
-    testType: 'app'
-    severityThreshold: 'high'
-    monitorWhen: 'always'
-    failOnIssues: false
 
 - task: SonarCloudPrepare@1
   inputs:
